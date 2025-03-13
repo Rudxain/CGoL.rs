@@ -52,15 +52,8 @@ impl Grid {
             }
         }
 
-        // Rules (from wikipedia)
-        if cell.is_alive() && (num_neighbour_alive == 2 || num_neighbour_alive == 3) {
-            return true; // alive
-        }
-        if !cell.is_alive() && num_neighbour_alive == 3 {
-            return true;
-        }
-
-        false
+        // Rules (from Wikipedia)
+        matches!((cell.is_alive(), num_neighbour_alive), (true, 2 | 3) | (false, 3))
     }
     pub fn update(&mut self) {
         // Vector of next states. It will match by index
